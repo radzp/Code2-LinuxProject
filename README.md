@@ -79,5 +79,24 @@ Komenda potrzebna by plik Code2 znajdował dynamiczną biblioteke libobjetosc.so
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/student/Code2/libobjetosc.so
 *BEZ TEJ KOMENDY WYSKAKUJE BŁĄD "cannot open shared object file: No such file or directory"*
 ____________________________________________________________________
+			TRZECI COMIT
+____________________________________________________________________
+//rozbudowa o zmienne automatyczne
+Code2: Code2.o libpole.a libobjetosc.so
+	g++ -g -Wall -o $@ $^
+Code2.o: Code2.cpp libpole.h libobjetosc.h
+	g++ -c $<
+pole.o: pole.cpp
+	g++ -c $<
+objetosc.o: objetosc.cpp
+	g++ -fPIC -c $<
+libpole.a: pole.o
+	ar rs $@ $<
+libobjetosc.so: objetosc.o
+	g++ -shared -o $@ $<
+usun:
+	rm -f Code2 *.o *.a *.so
+____________________________________________________________________
+Komendy jak w commit'cie drugim
 */
 
